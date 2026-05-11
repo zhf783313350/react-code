@@ -16,9 +16,9 @@ function App() {
           <img src={viteLogo} className="vite" alt="Vite logo" />
         </div>
         <div>
-          <h1>Get started</h1>
+          <h1>zhf783313350</h1>
           <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+            Edit <code>src/App.tsx</code>我在学习react+TypeScript开发<code>HMR</code>
           </p>
         </div>
         <button
@@ -37,17 +37,18 @@ function App() {
           <svg className="icon" role="presentation" aria-hidden="true">
             <use href="/icons.svg#documentation-icon"></use>
           </svg>
+          <h1>左侧内容</h1>
           <h2>Documentation</h2>
-          <p>Your questions, answered</p>
+          <p>Your questions is here</p>
           <ul>
             <li>
-              <a href="https://vite.dev/" target="_blank">
+              <a href="https://aistudio.google.com/prompts/new_chat" target="_blank">
                 <img className="logo" src={viteLogo} alt="" />
                 Explore Vite
               </a>
             </li>
             <li>
-              <a href="https://react.dev/" target="_blank">
+              <a href="https://chatgpt.com/" target="_blank">
                 <img className="button-icon" src={reactLogo} alt="" />
                 Learn more
               </a>
@@ -58,6 +59,7 @@ function App() {
           <svg className="icon" role="presentation" aria-hidden="true">
             <use href="/icons.svg#social-icon"></use>
           </svg>
+          <h1>右侧内容</h1>
           <h2>Connect with us</h2>
           <p>Join the Vite community</p>
           <ul>
