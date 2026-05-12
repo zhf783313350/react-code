@@ -11,7 +11,7 @@ function App() {
   return (
     <div style={{ display: 'flex', width: '100%', flex: 1, textAlign: 'left' }}>
       <aside style={{ width: '150px', borderRight: '1px solid var(--border)', padding: '32px 20px', flexShrink:1 }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>导航菜单</h2>
+        <h2 style={{ textAlign: 'center', marginBottom: '30px' , textSizeAdjust:'none' }}>导航菜单</h2>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
           {Array.from({ length: 10 }, (_, i) => (
             <li key={i}>
@@ -22,6 +22,8 @@ function App() {
                   Modal.info({
                       title: '提示',
                       content: '你点击了一级菜单 ' + (i + 1),
+                      open:true,
+                      type:'success',
                       onOk(){
                         console.log('你点击了一级菜单 ' + (i + 1))
                         const fetchData=async()=>{
@@ -44,7 +46,7 @@ function App() {
                 一级菜单 {i + 1}
               </a>
             </li>
-          ))}
+          ))} 
         </ul>
       </aside>
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', textAlign: 'center' }}>
@@ -56,8 +58,8 @@ function App() {
           </div>
           <div>
             <h1>{activeMenu}</h1>
-            <p>
-              Edit <code>src/App.tsx</code>我在学习react+TypeScript开发<code>HMR</code>
+             <p>
+            <h2 className="custom-title">我在学习react+TypeScript开发</h2>
             </p>
           </div>
           <button
