@@ -3,13 +3,14 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+import axios from 'axios';
 import { Modal } from 'antd';
 function App() {
   const [count, setCount] = useState(0)
   const [activeMenu, setActiveMenu] = useState('zhf783313350')
   return (
     <div style={{ display: 'flex', width: '100%', flex: 1, textAlign: 'left' }}>
-      <aside style={{ width: '250px', borderRight: '1px solid var(--border)', padding: '32px 20px', flexShrink: 0 }}>
+      <aside style={{ width: '150px', borderRight: '1px solid var(--border)', padding: '32px 20px', flexShrink:1 }}>
         <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>导航菜单</h2>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
           {Array.from({ length: 10 }, (_, i) => (
@@ -18,12 +19,16 @@ function App() {
                 onClick={(e) => {
                   e.preventDefault();
                   setActiveMenu(`一级菜单 ${i + 1}`);
-
                   Modal.info({
                       title: '提示',
                       content: '你点击了一级菜单 ' + (i + 1),
                       onOk(){
-                        console.log('用户点击了确定按钮')
+                        console.log('你点击了一级菜单 ' + (i + 1))
+                        const fetchData=async()=>{
+                        const res = await axios.get('http://localhost:10086/channels?page=1&limit=20')
+                         console.log("react网络框架请求的数据",res.data)
+                        }
+                        fetchData()
                       }
                   })
                 }}
@@ -155,5 +160,4 @@ function App() {
     </div>
   )
 }
-
 export default App
