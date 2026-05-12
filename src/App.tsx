@@ -5,13 +5,20 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import axios from 'axios';
 import { Modal } from 'antd';
+interface Channel {
+  name: string;
+  phone: string;
+  id: number
+}
 function App() {
   const [count, setCount] = useState(0)
   const [activeMenu, setActiveMenu] = useState('zhf783313350')
+  const [channels, setChannels] = useState<Channel[]>([]);
+
   return (
     <div style={{ display: 'flex', width: '100%', flex: 1, textAlign: 'left' }}>
-      <aside style={{ width: '150px', borderRight: '1px solid var(--border)', padding: '32px 20px', flexShrink:1 }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '30px' , textSizeAdjust:'none' }}>导航菜单</h2>
+      <aside style={{ width: '150px', borderRight: '1px solid var(--border)', padding: '32px 20px', flexShrink: 1 }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '30px', textSizeAdjust: 'none' }}>导航菜单</h2>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
           {Array.from({ length: 10 }, (_, i) => (
             <li key={i}>
@@ -19,145 +26,61 @@ function App() {
                 onClick={(e) => {
                   e.preventDefault();
                   setActiveMenu(`一级菜单 ${i + 1}`);
-                  Modal.info({
-                      title: '提示',
-                      content: '你点击了一级菜单 ' + (i + 1),
-                      open:true,
-                      type:'success',
-                      onOk(){
-                        console.log('你点击了一级菜单 ' + (i + 1))
-                        const fetchData=async()=>{
-                        const res = await axios.get('http://localhost:10086/channels?page=1&limit=20')
-                         console.log("react网络框架请求的数据",res.data)
+                  Modal.success({
+                    title: '提示',
+                    content: '正在获取渠道列表...',
+                    // 直接将 onOk 改为 async
+                    async onOk() {
+                      try {
+                        const res = await axios.get('http://localhost:10086/channels?page=1&limit=20');
+                        // --- 2. 修改存储逻辑：直接存入整个数组 ---
+                        if (res.data && res.data.data) {
+                          setChannels(res.data.data);
                         }
-                        fetchData()
+                      } catch (err) {
+                        console.error("网络请求失败", err);
                       }
+                    }
                   })
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'var(--accent-bg)';
-                  e.currentTarget.style.color = 'var(--accent)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'var(--social-bg)';
-                  e.currentTarget.style.color = 'var(--text-h)';
                 }}
               >
                 一级菜单 {i + 1}
               </a>
             </li>
-          ))} 
+          ))}
         </ul>
       </aside>
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative', textAlign: 'center' }}>
-        <section id="center">
-          <div className="hero">
-            <img src={heroImg} className="base" width="170" height="179" alt="" />
-            <img src={reactLogo} className="framework" alt="React logo" />
-            <img src={viteLogo} className="vite" alt="Vite logo" />
-          </div>
-          <div>
-            <h1>{activeMenu}</h1>
-             <p>
-            <h2 className="custom-title">我在学习react+TypeScript开发</h2>
-            </p>
-          </div>
-          <button
-            type="button"
-            className="counter"
-            onClick={() => setCount((count) => count + 1)}
-          >
-            Count is {count}
-          </button>
-        </section>
-
-        <div className="ticks"></div>
-
-        <section id="next-steps">
-          <div id="docs">
-            <svg className="icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#documentation-icon"></use>
-            </svg>
-            <h1>左侧内容</h1>
-            <h2>Documentation</h2>
-            <p>Your questions is here</p>
-            <ul>
-              <li>
-                <a href="https://aistudio.google.com/prompts/new_chat" target="_blank">
-                  <img className="logo" src={viteLogo} alt="" />
-                  Explore Vite
-                </a>
-              </li>
-              <li>
-                <a href="https://chatgpt.com/" target="_blank">
-                  <img className="button-icon" src={reactLogo} alt="" />
-                  Learn more
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div id="social">
-            <svg className="icon" role="presentation" aria-hidden="true">
-              <use href="/icons.svg#social-icon"></use>
-            </svg>
-            <h1>右侧内容</h1>
-            <h2>Connect with us</h2>
-            <p>Join the Vite community</p>
-            <ul>
-              <li>
-                <a href="https://github.com/vitejs/vite" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#github-icon"></use>
-                  </svg>
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a href="https://chat.vite.dev/" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#discord-icon"></use>
-                  </svg>
-                  Discord
-                </a>
-              </li>
-              <li>
-                <a href="https://x.com/vite_js" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#x-icon"></use>
-                  </svg>
-                  X.com
-                </a>
-              </li>
-              <li>
-                <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                  <svg
-                    className="button-icon"
-                    role="presentation"
-                    aria-hidden="true"
-                  >
-                    <use href="/icons.svg#bluesky-icon"></use>
-                  </svg>
-                  Bluesky
-                </a>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <div className="ticks"></div>
-        <section id="spacer"></section>
+        {channels.length > 0 ? (
+            <div style={{ padding: '20px', margin: '20px', background: '#fff', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+              <h3 style={{ color: '#1677ff', borderBottom: '2px solid #f0f0f0', paddingBottom: '10px' }}>渠道商列表</h3>
+              <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ background: '#fafafa', textAlign: 'left' }}>
+                      <th style={{ padding: '12px' }}>ID</th>
+                      <th style={{ padding: '12px' }}>名称</th>
+                      <th style={{ padding: '12px' }}>联系方式</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {channels.map((item) => (
+                      <tr key={item.id} style={{ borderBottom: '1px solid #f0f0f0', textAlign: 'left' }}>
+                        <td style={{ padding: '12px' }}>{item.id}</td>
+                        <td style={{ padding: '12px' }}>{item.name}</td>
+                        <td style={{ padding: '12px' }}>{item.phone}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ):(
+            <div style={{ textAlign: 'center', marginTop: '100px', color: '#999' }}>
+              <div style={{ fontSize: '50px', marginBottom: '20px' }}>📊</div>
+              <p>暂无数据，请点击左侧菜单并确认获取</p>
+            </div>
+          )}
       </main>
     </div>
   )
