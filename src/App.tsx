@@ -3,10 +3,10 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
-
+import { Modal } from 'antd';
 function App() {
   const [count, setCount] = useState(0)
-
+  const [activeMenu, setActiveMenu] = useState('zhf783313350')
   return (
     <div style={{ display: 'flex', width: '100%', flex: 1, textAlign: 'left' }}>
       <aside style={{ width: '250px', borderRight: '1px solid var(--border)', padding: '32px 20px', flexShrink: 0 }}>
@@ -15,6 +15,18 @@ function App() {
           {Array.from({ length: 10 }, (_, i) => (
             <li key={i}>
               <a href={`#menu${i + 1}`} style={{ display: 'block', padding: '12px 16px', background: 'var(--social-bg)', borderRadius: '8px', color: 'var(--text-h)', textDecoration: 'none', fontWeight: 500, transition: 'all 0.3s' }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveMenu(`一级菜单 ${i + 1}`);
+
+                  Modal.info({
+                      title: '提示',
+                      content: '你点击了一级菜单 ' + (i + 1),
+                      onOk(){
+                        console.log('用户点击了确定按钮')
+                      }
+                  })
+                }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = 'var(--accent-bg)';
                   e.currentTarget.style.color = 'var(--accent)';
@@ -38,7 +50,7 @@ function App() {
             <img src={viteLogo} className="vite" alt="Vite logo" />
           </div>
           <div>
-            <h1>zhf783313350</h1>
+            <h1>{activeMenu}</h1>
             <p>
               Edit <code>src/App.tsx</code>我在学习react+TypeScript开发<code>HMR</code>
             </p>
