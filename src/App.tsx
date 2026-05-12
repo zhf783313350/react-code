@@ -57,7 +57,7 @@ function App() {
               <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <thead>
-                    <tr style={{ background: '#fafafa', textAlign: 'left' }}>
+                    <tr style={{ background: '#fafafa', textAlign: 'center' ,fontSize: '22px', color: '#1b0bfd' }}>
                       <th style={{ padding: '12px' }}>ID</th>
                       <th style={{ padding: '12px' }}>名称</th>
                       <th style={{ padding: '12px' }}>联系方式</th>
@@ -65,7 +65,8 @@ function App() {
                   </thead>
                   <tbody>
                     {channels.map((item) => (
-                      <tr key={item.id} style={{ borderBottom: '1px solid #f0f0f0', textAlign: 'left' }}>
+                      
+                      <tr key={item.id} style={{ borderBottom: '1px solid #ffffff', textAlign: 'center',fontSize: '20px' ,color:'#1b0bfd'}}>
                         <td style={{ padding: '12px' }}>{item.id}</td>
                         <td style={{ padding: '12px' }}>{item.name}</td>
                         <td style={{ padding: '12px' }}>{item.phone}</td>
