@@ -5,10 +5,12 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import axios from 'axios';
 import { Modal } from 'antd';
+import dayjs from 'dayjs';
 interface Channel {
   name: string;
   phone: string;
   id: number
+  expire_at:string
 }
 function App() {
   const [count, setCount] = useState(0)
@@ -61,6 +63,7 @@ function App() {
                       <th style={{ padding: '12px' }}>ID</th>
                       <th style={{ padding: '12px' }}>名称</th>
                       <th style={{ padding: '12px' }}>联系方式</th>
+                      <th style={{ padding: '12px' }}>时间</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -70,6 +73,7 @@ function App() {
                         <td style={{ padding: '12px' }}>{item.id}</td>
                         <td style={{ padding: '12px' }}>{item.name}</td>
                         <td style={{ padding: '12px' }}>{item.phone}</td>
+                          <td style={{ padding: '12px' }}>{dayjs(item.expire_at).format('YYYY-MM-DD HH:mm:ss')}</td>
                       </tr>
                     ))}
                   </tbody>
