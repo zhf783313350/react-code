@@ -3,7 +3,7 @@ import './App.css'
 import axios from 'axios'
 import { Modal, Tag, message, Button, Input } from 'antd'
 import dayjs from 'dayjs'
- 
+ import { UserCard } from './UserCard';
 interface GoZeroResponse<T> {
   code: number;
   message: string;
@@ -108,6 +108,8 @@ function App() {
       {/* 🌟 状态控制：如果没有登录，显示登录卡片 */}
       {!isLoggedIn ? (
         <div style={{ width: '400px', padding: '40px', background: '#fff', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,0.05)', textAlign: 'center' }}>
+        {/* //  <UserCard name="代码特工" age={25} isOnline={true} /> */}
+          <UserCard name="张海锋开发的后台管理系统"  age={25} isOnline={true}  email="zhanghaifeng783313350@gmail.com"/>
           <h2 style={{ marginBottom: '8px', color: '#1677ff' }}>系统登录</h2>
           <p style={{ color: '#999', marginBottom: '30px' }}>请输入绑定的手机账号进行认证</p>
           
@@ -173,6 +175,7 @@ function App() {
                         <td style={{ padding: '12px' }}>{item.status === 1 ? <Tag color="success">正常</Tag> : <Tag color="error">禁用</Tag>}</td>
                         <td style={{ padding: '12px' }}>{item.phoneNumber}</td>
                         <td style={{ padding: '12px' }}>{dayjs(item.validTime).format('YYYY-MM-DD HH:mm:ss')}</td>
+
                       </tr>
                     ))}
                   </tbody>
@@ -224,7 +227,7 @@ function App() {
       >
         {selectedUser ? (
           <div style={{ marginTop: '20px', fontSize: '16px' }}>
-            <p><strong>用户 ID：</strong> {selectedUser.id}</p>
+            <p><strong>用户ID：</strong> {selectedUser.id}</p>
             <p><strong>手机号码：</strong> {selectedUser.phoneNumber}</p>
             <p><strong>账号状态：</strong> {selectedUser.status === 1 ? <Tag color="green">正常</Tag> : <Tag color="red">禁用</Tag>}</p>
             <p><strong>有效时间：</strong> {dayjs(selectedUser.validTime).format('YYYY-MM-DD HH:mm:ss')}</p>
